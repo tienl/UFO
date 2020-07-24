@@ -24,3 +24,24 @@ function buildTable(data) {
     });
   });
 }
+
+function handleClick() {
+  //look for html tag id of datetime, then hold the value into variable
+	let date = d3.select("#datetime").property("value");
+  //default variable for filteredData, starting with default
+  let filteredData = tableData;
+  //if date is entered, filter the default to show the user preference
+  if (date) {
+	filteredData = filteredData.filter(row => row.datetime === date);
+    };
+    // Rebuild the table using the filtered data
+   // @NOTE: If no date was entered, then filteredData will
+   // just be the original tableData.
+   buildTable(filteredData);
+};
+
+//listen for the click event on the button, then run handleClick function
+d3.selectAll("#filter-btn").on("click", handleClick);
+
+//when page loads build the table
+buildTable(tableData);
