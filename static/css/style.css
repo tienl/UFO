@@ -1,10 +1,20 @@
 body, .list-group-item{
   color: #f7f7f7;
   background-color: #292b2c;
+
+
+
+
 }
+
+input {
+  background-color: #646869
+}
+
 tr:nth-child(even) {
   background-color: #000000;
 }
+
 .jumbotron {
   background-image: url("../images/nasa.jpg");
   background-size: 100% 100%;

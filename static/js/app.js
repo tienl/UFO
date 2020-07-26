@@ -5,8 +5,6 @@ const tableData = data;
 var tbody = d3.select("tbody");
 
 function buildTable(data) {
-  tbody.html("");
-
   // First, clear out any existing data
   tbody.html("");
 
@@ -25,23 +23,66 @@ function buildTable(data) {
   });
 }
 
-function handleClick() {
-  //look for html tag id of datetime, then hold the value into variable
-	let date = d3.select("#datetime").property("value");
-  //default variable for filteredData, starting with default
-  let filteredData = tableData;
-  //if date is entered, filter the default to show the user preference
-  if (date) {
-	filteredData = filteredData.filter(row => row.datetime === date);
-    };
-    // Rebuild the table using the filtered data
-   // @NOTE: If no date was entered, then filteredData will
-   // just be the original tableData.
-   buildTable(filteredData);
-};
+// Keep track of all filters
+var filters = {};
 
-//listen for the click event on the button, then run handleClick function
-d3.selectAll("#filter-btn").on("click", handleClick);
+// This function will replace your handleClick function
+// will call filterTable at the end
+function updateFilters() {
 
-//when page loads build the table
+  // Save the element, value, and id of the filter that was changed
+  let date = d3.select("#datetime").property("value");
+  let city = d3.select('#city').property("value")
+  let state = d3.select('#state').property("value")
+  let country = d3.select('#country').property("value")
+  let shape = d3.select('#shape').property("value")
+
+  // If a filter value was entered then add that filter Id and value
+  // to the filters list. Otherwise, clear that filter from the filters object
+  if (filters) {
+    filters = {date, city, state, country, shape}
+  }
+
+  // Call function to apply all filters and rebuild the table
+  filterTable(filters);
+}
+
+// this function will return table with filtered data
+function filterTable() {
+
+  // Set the filteredData to the tableData
+  filteredData = tableData
+
+  // Loop through all of the filters and keep any data that
+  // matches the filter values
+  if (filters.date) {
+    filteredData = filteredData.filter(obj =>
+      obj.datetime == filters.date)
+    }
+  if (filters.city) {
+    filteredData = filteredData.filter(obj =>
+      obj.city == filters.city)
+    }
+  if (filters.state) {
+    filteredData = filteredData.filter(obj =>
+      obj.state == filters.state)
+    }
+  if (filters.country) {
+    filteredData = filteredData.filter(obj =>
+      obj.country == filters.country)
+    }
+  if (filters.shape) {
+    filteredData = filteredData.filter(obj =>
+      obj.shape == filters.shape)
+    }
+
+  // Finally, rebuild the table using the filtered Data
+  buildTable(filteredData);
+}
+
+// Attach an event to listen for changes to each filter
+// calls updateFilters function
+d3.selectAll("#filter-btn").on("click", updateFilters);
+
+// Build the table when the page loads
 buildTable(tableData);
