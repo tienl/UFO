@@ -50,17 +50,14 @@ function updateFilters() {
       delete city
       }
     else {filters["city"] = city}
-
   if (state === "" ) {
       delete state
       }
     else {filters["state"] = state}
-
   if (country === "" ) {
       delete country
       }
     else {filters["country"] = country}
-
   if (shape === "" ) {
       delete shape
       }
@@ -81,29 +78,6 @@ console.log(filteredData, 'line 78')
   Object.entries(filters).forEach(([key,value]) => {
     filteredData = filteredData.filter(row => row[key] === value);
   })
-
-
-
-  // if (filters.datetime) {
-  //   filteredData = filteredData.filter(obj =>
-  //     obj.datetime == filters.datetime)
-  //   }
-  // if (filters.city) {
-  //   filteredData = filteredData.filter(obj =>
-  //     obj.city == filters.city)
-  //   }
-  // if (filters.state) {
-  //   filteredData = filteredData.filter(obj =>
-  //     obj.state == filters.state)
-  //   }
-  // if (filters.country) {
-  //   filteredData = filteredData.filter(obj =>
-  //     obj.country == filters.country)
-  //   }
-  // if (filters.shape) {
-  //   filteredData = filteredData.filter(obj =>
-  //     obj.shape == filters.shape)
-  //   }
 
   // Finally, rebuild the table using the filtered Data
   buildTable(filteredData);
