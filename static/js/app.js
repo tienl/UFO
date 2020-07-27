@@ -30,6 +30,9 @@ var filters = {};
 // will call filterTable at the end
 function updateFilters() {
 
+  //resetting filter variable
+  filters = {}
+
   // Save the element, value, and id of the filter that was changed
   let date = d3.select("#datetime").property("value");
   let city = d3.select('#city').property("value")
@@ -39,9 +42,29 @@ function updateFilters() {
 
   // If a filter value was entered then add that filter Id and value
   // to the filters list. Otherwise, clear that filter from the filters object
-  if (filters) {
-    filters = {date, city, state, country, shape}
-  }
+  if (date === "" ) {
+      delete date
+      }
+    else {filters["datetime"] = date}
+  if (city === "" ) {
+      delete city
+      }
+    else {filters["city"] = city}
+
+  if (state === "" ) {
+      delete state
+      }
+    else {filters["state"] = state}
+
+  if (country === "" ) {
+      delete country
+      }
+    else {filters["country"] = country}
+
+  if (shape === "" ) {
+      delete shape
+      }
+    else {filters["shape"] = shape}
 
   // Call function to apply all filters and rebuild the table
   filterTable(filters);
@@ -52,29 +75,35 @@ function filterTable() {
 
   // Set the filteredData to the tableData
   filteredData = tableData
-
+console.log(filteredData, 'line 78')
   // Loop through all of the filters and keep any data that
   // matches the filter values
-  if (filters.date) {
-    filteredData = filteredData.filter(obj =>
-      obj.datetime == filters.date)
-    }
-  if (filters.city) {
-    filteredData = filteredData.filter(obj =>
-      obj.city == filters.city)
-    }
-  if (filters.state) {
-    filteredData = filteredData.filter(obj =>
-      obj.state == filters.state)
-    }
-  if (filters.country) {
-    filteredData = filteredData.filter(obj =>
-      obj.country == filters.country)
-    }
-  if (filters.shape) {
-    filteredData = filteredData.filter(obj =>
-      obj.shape == filters.shape)
-    }
+  Object.entries(filters).forEach(([key,value]) => {
+    filteredData = filteredData.filter(row => row[key] === value);
+  })
+
+
+
+  // if (filters.datetime) {
+  //   filteredData = filteredData.filter(obj =>
+  //     obj.datetime == filters.datetime)
+  //   }
+  // if (filters.city) {
+  //   filteredData = filteredData.filter(obj =>
+  //     obj.city == filters.city)
+  //   }
+  // if (filters.state) {
+  //   filteredData = filteredData.filter(obj =>
+  //     obj.state == filters.state)
+  //   }
+  // if (filters.country) {
+  //   filteredData = filteredData.filter(obj =>
+  //     obj.country == filters.country)
+  //   }
+  // if (filters.shape) {
+  //   filteredData = filteredData.filter(obj =>
+  //     obj.shape == filters.shape)
+  //   }
 
   // Finally, rebuild the table using the filtered Data
   buildTable(filteredData);
