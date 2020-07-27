@@ -1,6 +1,14 @@
 # UFO filter page
-This repository shows how I've used javascript, css, html to build a dynamic webpage that allows user to view and interact with the webpage.  The webpage demonstrates a mock portal that presents a large amount of eyewitness accounts of UFO data in a table.  The webpage includes a filtering function which allow users to filter through the eyewitness with specific criteria.  Once the filter is submitted, javascript process the filter and return the filtered result.  A limitation exists in the filtering function, as the existing code expects a complete match.  Some additional features that may be further developed are listed here:
-  - Allow users to filter for keywords within "comments"
+This repository shows how I've used javascript, css, and HTML with boostrap and d3.js libraries to build an interactive webpage.  The webpage allow users to view and interact with the webpage in real time.  The page is a mock portal that shows a large amount of eyewitness reports of UFO sighting data via a javascript data file presented in the website as a table.  I've included a filtering function that allow users to filter the table specific criteria and return the result in real time.  
+
+The website essentially consists of 3 major components
+  - HTML code that present the webpage
+  - Javascript code that handles data, interaction, and backend functions
+  - CSS for detailed, easy and consistent styling
+
+Some enhancement ideas are listed below to further extend usability of this demo
+  - Add filtering for "Duration" and "Comments"
+  - Build global search function that searches keywords against all columns
   - Aid user typos in search criteria, suggest closest match of term when input does not match
   - Allow export of filtered data
   - Allow sorting on display columns
